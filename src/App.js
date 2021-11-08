@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          con két kêu cục kịt
+          anh yêu em kim chi 
         </a>
       </header>
     </div>
