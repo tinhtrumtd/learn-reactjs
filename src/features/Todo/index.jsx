@@ -19,7 +19,7 @@ function TodoFeature(props) {
             <Route path="/todos" element={<ListPage/>} />
             <Route path="/todos/:todoId" element={<DetailPage/>} />
             </Routes>
-            <Outlet/>
+           
         </div>
     );
 }
