@@ -5,20 +5,22 @@ import { useState } from 'react';
 import { Outlet, Route, Routes} from 'react-router-dom';
 import ListPage from './pages/ListPage';
 import DetailPage from './pages/DetailPage';
+import { useRouteMatch } from 'react-router-dom';
+import NotFound from '../../components/NotFound';
 
 TodoFeature.propTypes = {
     
 };
 
 function TodoFeature(props) {
-    
+    const match = useRouteMatch();
     return (
         <div>
             todo share 
-            <Routes>
-            <Route path="/todos" element={<ListPage/>} />
-            <Route path="/todos/:todoId" element={<DetailPage/>} />
-            </Routes>
+            
+            <Route path={match.path} component={ListPage} exact />
+            <Route path={`${match.path}/:todoId`} component={DetailPage} exact/>
+            <Route component={NotFound}/>
            
         </div>
     );

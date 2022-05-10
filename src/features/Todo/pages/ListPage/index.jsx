@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TodoList from '../../components/TodoList';
 import { useState } from 'react';
-
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string'
+import TodoForm from '../../components/TodoForm';
 ListPage.propTypes = {
     
 };
@@ -25,8 +27,12 @@ function ListPage(props) {
             status: 'new',
         },
     ]
+    const location = useLocation();
     const[ todoList, setTodoList ]= useState(inittodoList);
-    const[fillterstatus, setfillterstatus]= useState('all')
+    const[fillterstatus, setfillterstatus]= useState(()=>{
+        const params = queryString.parse(location.search)
+        return params.status || 'all';
+    })
 
     const handleTodoClick =(todo, idx)=>{
        const newtodoList= [...todoList];
@@ -50,9 +56,14 @@ function ListPage(props) {
         }
       
         const renderfilltertodolist=todoList.filter(todo=> fillterstatus==='all' || fillterstatus === todo.status);
+        const handleTodoFormSubmit = (values)=>{
+            console.log('form', values);
+        }
     return (
         <div>
+             <TodoForm onSubmit={handleTodoFormSubmit}/>
             <h3>todo list</h3>
+           
             <TodoList todoList={renderfilltertodolist} onTodoClick={handleTodoClick}/>
             <div>
                 <button onClick={handleShowAllClick}>show all</button>
